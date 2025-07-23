@@ -13,66 +13,63 @@ function TaskItem({ task, onUpdate, onDelete }) {
     setIsEditing(false);
   };
 
+  const inputStyle =
+    "w-full p-2 border border-gray-300 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition";
+
   return (
-    <div className="bg-gray-100 p-4 rounded shadow-sm">
+    <div className="bg-white p-5 rounded-xl shadow-md border border-blue-200">
       {isEditing ? (
         <>
-          <input
-            name="title"
-            value={edited.title}
-            onChange={handleChange}
-            className="w-full border p-1 rounded mb-1"
-          />
-          <textarea
-            name="description"
-            value={edited.description}
-            onChange={handleChange}
-            className="w-full border p-1 rounded mb-1"
-          />
-          <input
-            type="date"
-            name="dueDate"
-            value={edited.dueDate}
-            onChange={handleChange}
-            className="w-full border p-1 rounded mb-1"
-          />
-          <select
-            name="status"
-            value={edited.status}
-            onChange={handleChange}
-            className="w-full border p-1 rounded mb-1"
-          >
+          <input name="title" value={edited.title} onChange={handleChange} className={inputStyle} />
+          <textarea name="description" value={edited.description} onChange={handleChange} className={inputStyle} />
+          <input type="date" name="dueDate" value={edited.dueDate} onChange={handleChange} className={inputStyle} />
+          <select name="status" value={edited.status} onChange={handleChange} className={inputStyle}>
             <option>Pending</option>
             <option>Completed</option>
           </select>
-          <select
-            name="priority"
-            value={edited.priority}
-            onChange={handleChange}
-            className="w-full border p-1 rounded mb-2"
-          >
+          <select name="priority" value={edited.priority} onChange={handleChange} className={inputStyle}>
             <option>Low</option>
             <option>Medium</option>
             <option>High</option>
           </select>
-          <div className="flex gap-2">
-            <button onClick={handleSave} className="bg-green-500 text-white px-3 py-1 rounded">
-              Save
+          <div className="flex gap-2 mt-3">
+            <button
+              onClick={handleSave}
+              className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-red-500 transition"
+            >
+              💾 Save
             </button>
-            <button onClick={() => setIsEditing(false)} className="bg-gray-300 px-3 py-1 rounded">
-              Cancel
+            <button
+              onClick={() => setIsEditing(false)}
+              className="bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400 transition"
+            >
+              ❌ Cancel
             </button>
           </div>
         </>
       ) : (
         <>
-          <h3 className="font-bold text-lg">{task.title}</h3>
-          <p className="text-sm">{task.description}</p>
-          <p className="text-xs text-gray-600">Due: {task.dueDate}</p>
-          <p className="text-xs">Status: {task.status}, Priority: {task.priority}</p>
-          <div className="flex gap-3 mt-2">
-            <button onClick={() => setIsEditing(true)} className="text-blue-600 text-sm">Edit</button>
-            <button onClick={() => onDelete(task.id)} className="text-red-600 text-sm">Delete</button>
+          <div className="flex justify-between items-start flex-wrap">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800">{task.title}</h3>
+              <p className="text-sm text-gray-600">{task.description}</p>
+              <p className="text-xs text-gray-500 mt-1">Due: {task.dueDate}</p>
+              <p className="text-xs text-gray-500">Status: {task.status} | Priority: {task.priority}</p>
+            </div>
+            <div className="flex flex-col gap-2 mt-2 sm:mt-0 sm:flex-row">
+              <button
+                onClick={() => setIsEditing(true)}
+                className="text-blue-700 hover:text-red-500 font-medium text-sm"
+              >
+                ✏️ Edit
+              </button>
+              <button
+                onClick={() => onDelete(task.id)}
+                className="text-red-600 hover:text-blue-600 font-medium text-sm"
+              >
+                🗑️ Delete
+              </button>
+            </div>
           </div>
         </>
       )}
