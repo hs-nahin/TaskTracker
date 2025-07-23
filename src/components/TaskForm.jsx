@@ -44,7 +44,7 @@ const TaskForm = ({ onAdd }) => {
           name="title"
           value={task.title}
           onChange={handleChange}
-          className="w-full px-4 py-2 rounded-md border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 rounded-b-lg border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter task title"
         />
       </div>
