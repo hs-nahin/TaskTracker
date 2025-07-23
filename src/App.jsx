@@ -6,44 +6,60 @@ import TaskList from "./components/TaskList";
 function App() {
   const [tasks, setTasks] = useState([]);
 
+  // Load saved tasks from local storage on first load
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("tasks")) || [];
-    setTasks(saved);
+    const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    setTasks(savedTasks);
   }, []);
 
+  // Save tasks to local storage whenever they change
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const notifyAdd = () => toast.success("Task added!");
-  const notifyUpdate = () => toast.success("Task updated!");
-  const notifyDelete = () => toast.error("Task deleted!");
+  // Show toast messages
+  const showAddToast = () => toast.success("Task added!");
+  const showUpdateToast = () => toast.success("Task updated!");
+  const showDeleteToast = () => toast.error("Task deleted!");
 
-  const addTask = (task) => {
-    setTasks([...tasks, task]);
-    notifyAdd();
+  // Add new task
+  const addTask = (newTask) => {
+    setTasks([...tasks, newTask]);
+    showAddToast();
   };
 
+  // Update a task
   const updateTask = (updatedTask) => {
-    setTasks(tasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
-    notifyUpdate();
+    const updatedTasks = tasks.map((task) =>
+      task.id === updatedTask.id ? updatedTask : task
+    );
+    setTasks(updatedTasks);
+    showUpdateToast();
   };
 
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((t) => t.id !== id));
-    notifyDelete();
+  // Delete a task
+  const deleteTask = (taskId) => {
+    const filteredTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(filteredTasks);
+    showDeleteToast();
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-white rounded-lg border-4 border-blue-600 shadow-lg p-8 flex flex-col items-center">
-        <h1 className="text-3xl font-bold text-blue-800 mb-8 text-center">
+    <div className="min-h-screen bg-blue-50 flex justify-center items-start pt-20 px-4">
+      <div className="w-full max-w-sm bg-gradient-to-br from-white via-blue-100 to-blue-200 rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300">
+        <h1 className="text-2xl font-bold text-blue-800 text-center mb-6">
           📝 Task Tracker
         </h1>
+
+        {/* Task Form */}
         <TaskForm onAdd={addTask} />
+
+        {/* Task List */}
         <TaskList tasks={tasks} onUpdate={updateTask} onDelete={deleteTask} />
       </div>
-      <Toaster position="top-center" reverseOrder={false} />
+
+      {/* Toast Notifications */}
+      <Toaster position="top-center" />
     </div>
   );
 }
