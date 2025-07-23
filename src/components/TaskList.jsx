@@ -1,8 +1,12 @@
 import TaskItem from "./TaskItem";
 
 function TaskList({ tasks, onUpdate, onDelete }) {
-  if (tasks.length === 0)
-    return <p className="text-center text-gray-600 italic">No tasks yet. Add one above.</p>;
+  if (!tasks.length)
+    return (
+      <p className="text-center text-blue-700 italic font-medium">
+        No tasks yet. Add a new task above.
+      </p>
+    );
 
   return (
     <div className="space-y-5">

@@ -9,21 +9,14 @@ function TaskForm({ onAdd }) {
     priority: "Low",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setTask({ ...task, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!task.title) return;
 
-    const newTask = {
-      ...task,
-      id: Date.now(),
-    };
-
-    onAdd(newTask);
+    onAdd({ ...task, id: Date.now() });
 
     setTask({
       title: "",
@@ -35,48 +28,64 @@ function TaskForm({ onAdd }) {
   };
 
   const inputStyle =
-    "w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 transition";
+    "w-full p-3 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-blue-900";
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white shadow-md p-6 rounded-xl mb-8 space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input
-          type="text"
-          name="title"
-          placeholder="Task Title"
-          value={task.title}
-          onChange={handleChange}
-          className={inputStyle}
-          required
-        />
-        <input
-          type="date"
-          name="dueDate"
-          value={task.dueDate}
-          onChange={handleChange}
-          className={inputStyle}
-        />
-        <select name="status" value={task.status} onChange={handleChange} className={inputStyle}>
-          <option>Pending</option>
-          <option>Completed</option>
-        </select>
-        <select name="priority" value={task.priority} onChange={handleChange} className={inputStyle}>
-          <option>Low</option>
-          <option>Medium</option>
-          <option>High</option>
-        </select>
-      </div>
+    <form onSubmit={handleSubmit} className="space-y-5 mb-8">
+      <input
+        type="text"
+        name="title"
+        placeholder="Task Title"
+        value={task.title}
+        onChange={handleChange}
+        className={`${inputStyle} text-lg font-semibold placeholder-blue-400`}
+        required
+      />
+
       <textarea
         name="description"
         placeholder="Description"
         value={task.description}
         onChange={handleChange}
-        className={inputStyle}
-        rows="3"
+        className={`${inputStyle} text-lg placeholder-blue-400 resize-none`}
+        rows={3}
       />
+
+      {/* Date and selects in one row */}
+      <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+        <input
+          type="date"
+          name="dueDate"
+          value={task.dueDate}
+          onChange={handleChange}
+          className={`${inputStyle} flex-1`}
+        />
+
+        <select
+          name="status"
+          value={task.status}
+          onChange={handleChange}
+          className={`${inputStyle} flex-1`}
+        >
+          <option>Pending</option>
+          <option>Completed</option>
+        </select>
+
+        <select
+          name="priority"
+          value={task.priority}
+          onChange={handleChange}
+          className={`${inputStyle} flex-1`}
+        >
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select>
+      </div>
+
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-red-500 transition font-semibold tracking-wide"
+        className="w-full py-4 rounded-lg bg-blue-600 text-white text-xl font-semibold hover:bg-red-600 transition"
       >
         ➕ Add Task
       </button>
