@@ -62,13 +62,13 @@ function TaskItem({ task, onUpdate, onDelete }) {
           <div className="flex gap-4">
             <button
               onClick={handleSave}
-              className="bg-blue-600 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-semibold transition"
+              className="bg-blue-600 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-semibold transition cursor-pointer"
             >
               💾 Save
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg transition"
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg transition cursor-pointer"
             >
               ❌ Cancel
             </button>
@@ -97,13 +97,13 @@ function TaskItem({ task, onUpdate, onDelete }) {
           <div className="flex justify-center gap-8">
             <button
               onClick={() => setIsEditing(true)}
-              className="text-blue-700 hover:text-red-600 font-semibold"
+              className="text-blue-700 hover:text-red-600 font-semibold cursor-pointer"
             >
               ✏️ Edit
             </button>
             <button
               onClick={() => onDelete(task.id)}
-              className="text-red-600 hover:text-blue-700 font-semibold"
+              className="text-red-600 hover:text-blue-700 font-semibold cursor-pointer"
             >
               🗑️ Delete
             </button>
