@@ -84,7 +84,7 @@ const TaskForm = ({ onAdd }) => {
     type="submit"
     className="w-72 bg-blue-600 hover:bg-red-500 text-white font-semibold py-3 rounded-md transition duration-300"
   >
-    ➕ Add Task
+    Add Task
   </button>
 </form>
 
